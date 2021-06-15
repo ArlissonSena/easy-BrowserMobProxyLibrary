@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 4.0.3 (Python 3.9.5 on win32)" generated="20210615 18:23:55.355" rpa="false" schemaversion="2">
+<suite id="s1" name="Easy Example" source="D:\Users\igor.mendes\Documents\Robot-BrowserMobProxyLibrary\web\example\easy_example.robot">
+<test id="s1-t1" name="Coletando o tráfego do google e salvando num arquivo file .har">
+<kw name="Start Local Server" library="BrowserMobProxyLibrary">
+<arg>D:/Users/igor.mendes/Documents/browsermob-proxy-2.1.4/bin/browsermob-proxy</arg>
+<doc>Start local Browsermob Proxy Server instance</doc>
+<status status="PASS" starttime="20210615 18:23:55.584" endtime="20210615 18:23:57.743"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>&amp;{port}</var>
+<arg>port=8086</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20210615 18:23:57.747" level="INFO">&amp;{port} = { port=8086 }</msg>
+<status status="PASS" starttime="20210615 18:23:57.745" endtime="20210615 18:23:57.747"/>
+</kw>
+<kw name="Create Proxy" library="BrowserMobProxyLibrary">
+<var>${BrowserMob_Proxy}</var>
+<arg>${port}</arg>
+<doc>Creates proxy.</doc>
+<msg timestamp="20210615 18:23:59.413" level="INFO">${BrowserMob_Proxy} = &lt;browsermobproxy.client.Client object at 0x0000020F4E67BAC0&gt;</msg>
+<status status="PASS" starttime="20210615 18:23:57.749" endtime="20210615 18:23:59.413"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${options}</var>
+<arg>sys.modules['selenium.webdriver'].ChromeOptions()</arg>
+<arg>sys, selenium.webdriver</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20210615 18:23:59.416" level="INFO">${options} = &lt;selenium.webdriver.chrome.options.Options object at 0x0000020F4E67B760&gt;</msg>
+<status status="PASS" starttime="20210615 18:23:59.415" endtime="20210615 18:23:59.416"/>
+</kw>
+<kw name="Call Method" library="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--proxy-server\=localhost:8086</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" starttime="20210615 18:23:59.416" endtime="20210615 18:23:59.416"/>
+</kw>
+<kw name="Create Webdriver" library="SeleniumLibrary">
+<arg>Chrome</arg>
+<arg>chrome_options=${options}</arg>
+<doc>Creates an instance of Selenium WebDriver.</doc>
+<msg timestamp="20210615 18:23:59.416" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<status status="PASS" starttime="20210615 18:23:59.416" endtime="20210615 18:24:00.867"/>
+</kw>
+<kw name="New Har" library="BrowserMobProxyLibrary">
+<arg>google</arg>
+<doc>This sets a new HAR to be recorded</doc>
+<status status="PASS" starttime="20210615 18:24:00.869" endtime="20210615 18:24:00.880"/>
+</kw>
+<kw name="Go To" library="SeleniumLibrary">
+<arg>${PAGE_URL}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<msg timestamp="20210615 18:24:00.891" level="INFO">Opening url 'https://www.google.com'</msg>
+<status status="PASS" starttime="20210615 18:24:00.891" endtime="20210615 18:24:03.664"/>
+</kw>
+<kw name="Title Should Be" library="SeleniumLibrary">
+<arg>Google</arg>
+<doc>Verifies that the current page title equals ``title``.</doc>
+<msg timestamp="20210615 18:24:03.670" level="INFO">Page title is 'Google'.</msg>
+<status status="PASS" starttime="20210615 18:24:03.665" endtime="20210615 18:24:03.671"/>
+</kw>
+<kw name="Get Har As Json" library="BrowserMobProxyLibrary">
+<var>${har}</var>
+<doc>Returns the HAR that has been recorded as json</doc>
+<msg timestamp="20210615 18:24:03.712" level="INFO">${har} = {"log": {"version": "1.2", "creator": {"name": "BrowserMob Proxy", "version": "2.1.4", "comment": ""}, "pages": [{"id": "google", "startedDateTime": "2021-06-15T18:24:00.879-03:00", "title": "google",...</msg>
+<status status="PASS" starttime="20210615 18:24:03.672" endtime="20210615 18:24:03.712"/>
+</kw>
+<kw name="Create File" library="OperatingSystem">
+<arg>${EXECDIR}${/}har/file.har</arg>
+<arg>${har}</arg>
+<doc>Creates a file with the given content and encoding.</doc>
+<msg timestamp="20210615 18:24:03.713" level="INFO" html="true">Created file '&lt;a href="file://D:\Users\igor.mendes\Documents\Robot-BrowserMobProxyLibrary\web\example\har\file.har"&gt;D:\Users\igor.mendes\Documents\Robot-BrowserMobProxyLibrary\web\example\har\file.har&lt;/a&gt;'.</msg>
+<status status="PASS" starttime="20210615 18:24:03.712" endtime="20210615 18:24:03.714"/>
+</kw>
+<kw name="Stop Local Server" library="BrowserMobProxyLibrary">
+<doc>This will stop the process running the Browsermob Proxy</doc>
+<status status="PASS" starttime="20210615 18:24:03.714" endtime="20210615 18:24:03.718"/>
+</kw>
+<kw name="Close All Browsers" library="SeleniumLibrary">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" starttime="20210615 18:24:03.719" endtime="20210615 18:24:06.525"/>
+</kw>
+<status status="PASS" starttime="20210615 18:23:55.583" endtime="20210615 18:24:06.527"/>
+</test>
+<status status="PASS" starttime="20210615 18:23:55.357" endtime="20210615 18:24:06.531"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Easy Example">Easy Example</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
